@@ -8,6 +8,7 @@ import Alerta from './Alerta.vue'
     })
 
     const error = ref('')
+    const emit = defineEmits(['getClima'])
 
     const paises = [
         { codigo: 'US', nombre: 'Estados Unidos' },
@@ -17,7 +18,7 @@ import Alerta from './Alerta.vue'
         { codigo: 'CR', nombre: 'Costa Rica' },
         { codigo: 'ES', nombre: 'España' },
         { codigo: 'PE', nombre: 'Perú' }
-]
+    ]
 
     const consultarClima = () => {
 
@@ -29,7 +30,10 @@ import Alerta from './Alerta.vue'
             return
         }
         console.log('Busqueda...')
+
+        emit('getClima')
     }
+
 
 </script>
 
