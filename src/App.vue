@@ -1,10 +1,10 @@
 <script setup>
     import Formulario from './components/Formulario.vue'
-    import useClima from './composables/useClima'
+    import Spinner from './components/Spinner.vue'
+    import Clima from './components/Clima.vue'
+    import useClima  from './composables/useClima'
 
-    const { getClima } = useClima()
-
-    getClima()
+    const { getClima, clima, mostrarClima, formatearTemperatura, cargando } = useClima()
 
 </script>
 
@@ -13,7 +13,13 @@
 
     <div class="contenedor buscador-clima">
         <Formulario
-            @getClima="getClima"
+            @get-clima="getClima"
+        />
+
+        <Spinner v-if="cargando"/>
+        <Clima
+            v-if="mostrarClima"
+            :clima="clima"
         />
     </div>
 </template>
