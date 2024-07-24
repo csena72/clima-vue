@@ -5,6 +5,7 @@ export default function useClima() {
 
     const clima = ref({})
     const cargando = ref(false)
+    const error = ref('')
 
     const getClima = async ({ciudad, pais}) => {
         
@@ -12,7 +13,8 @@ export default function useClima() {
 
         cargando.value = true
         clima.value = {}
-        
+        error.value = ''
+
         try {
             const urlGeo = `http://api.openweathermap.org/geo/1.0/direct?q=${ciudad},${pais}&limit=1&appid=${APIkey}`
             const {data} = await axios.get(urlGeo)
@@ -23,8 +25,8 @@ export default function useClima() {
             
             clima.value = resultado
             
-        } catch (error) {
-            console.log(error)
+        } catch {
+            error.value = 'Ciudad no encontrada'
         } finally {
             cargando.value = false
         }
@@ -41,6 +43,7 @@ export default function useClima() {
         clima,
         mostrarClima,
         formatearTemperatura,
-        cargando
+        cargando,
+        error
     }
 }
